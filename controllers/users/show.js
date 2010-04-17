@@ -21,7 +21,9 @@ function user(userXML) {
 		width:138,
 		height:138,
 		top: 70,
-		url: userXML.getElementsByTagName("icon").item(0).text
+		url: userXML.getElementsByTagName("icon").item(0).text,
+		backgroundImage:'../../images/loader_140x140.png'
+		
 	});
 	
 	var LabelLocation = Ti.UI.createLabel({
@@ -37,6 +39,7 @@ function user(userXML) {
 	var ButtonPersonalUrl = Titanium.UI.createButton({
 		top:260,
 		image:'../../images/button_pl_blue.png',
+		backgroundSelectedImage: '../../images/button_pl_blue_e.png'
 		width: 173,
 		height: 26,
 		title: "User Site",//userXML.getElementsByTagName("personal_url").item(0).text.str.substr(100),
@@ -47,6 +50,7 @@ function user(userXML) {
 	var ButtonGoToProjects = Titanium.UI.createButton({
 		top:296,
 		image:'../../images/button_pl_gray.png',
+		backgroundSelectedImage: '../../images/button_pl_gray_e.png',
 		width: 173,
 		height: 26,
 		title: "User Portfolio",

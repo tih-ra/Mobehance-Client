@@ -3,6 +3,7 @@ buttonsBar = function() {
 var ButtonFeatured = Titanium.UI.createButton({
 		top:10,
 		image:'../../images/button_pl_black.png',
+		backgroundSelectedImage: '../../images/button_pl_black_e.png',
 		width: 173,
 		height: 26,
 		title: Titanium.App.Properties.getString("_TITLE_FEATURED"),
@@ -12,6 +13,7 @@ var ButtonFeatured = Titanium.UI.createButton({
 	ButtonRecent = Titanium.UI.createButton({
 		top:46,
 		image:'../../images/button_pl_black.png',
+		backgroundSelectedImage: '../../images/button_pl_black_e.png',
 		width: 173,
 		height: 26,
 		title: Titanium.App.Properties.getString("_TITLE_RECENT"),
@@ -21,6 +23,7 @@ var ButtonFeatured = Titanium.UI.createButton({
 	ButtonWeekViewed = Titanium.UI.createButton({
 		top:82,
 		image:'../../images/button_pl_black.png',
+		backgroundSelectedImage: '../../images/button_pl_black_e.png',
 		width: 173,
 		height: 26,
 		title: Titanium.App.Properties.getString("_TITLE_WEEK_VIEWED"),
@@ -33,7 +36,7 @@ var ButtonFeatured = Titanium.UI.createButton({
 		height:43,
 		width:260,
 		top:138,
-		value: 'Search'
+		hintText: 'Search'
 	}),
 	buttonsBar = Titanium.UI.createView({
 		top: 40,
@@ -49,6 +52,7 @@ var ButtonFeatured = Titanium.UI.createButton({
 		bottom:10,
 		left: 20,
 		image:'../../images/icon_favorite.png',
+		backgroundSelectedImage: '../../images/icon_favorite_e.png',
 		width: 73,
 		height: 73
 	}),
@@ -56,6 +60,7 @@ var ButtonFeatured = Titanium.UI.createButton({
 		bottom:10,
 		left: (buttonsBar.width/2) - 37,
 		image:'../../images/icon_contact.png',
+		backgroundSelectedImage: '../../images/icon_contact_e.png',
 		width: 73,
 		height: 73
 	}),
@@ -63,6 +68,7 @@ var ButtonFeatured = Titanium.UI.createButton({
 		bottom:10,
 		right: 20,
 		image:'../../images/icon_profile.png',
+		backgroundSelectedImage:'../../images/icon_profile_e.png',
 		width: 73,
 		height: 73
 	}), 
@@ -208,6 +214,15 @@ var ButtonFeatured = Titanium.UI.createButton({
 		//win.add(loginBar);
 	}
 	
+	function completeMiniButtonsBar(){
+		buttonsBar.height = 93;
+		buttonsBar.top = 247;
+		var lelements = [ButtonMiniFavorite, ButtonMiniContact, ButtonMiniProfile];
+		for (var i=0;i<lelements.length;i++) {
+			buttonsBar.add(lelements[i]);
+		}
+	}
+	
 	function buttonBarShowHide() {
 		if (buttonbar_visibility) {
 			buttonsBar.hide();
@@ -221,6 +236,15 @@ var ButtonFeatured = Titanium.UI.createButton({
 	return {
 		_init: function(titleLine, win, buttons) {
 			completeButtonsBar();
+			
+			for (var i=0;i<buttons.length;i++) {
+				titleLine.add(eval(buttons[i]));
+			}
+			
+			win.add(buttonsBar)
+		},
+		_init_mini_version: function(titleLine, win, buttons) {
+			completeMiniButtonsBar();
 			
 			for (var i=0;i<buttons.length;i++) {
 				titleLine.add(eval(buttons[i]));

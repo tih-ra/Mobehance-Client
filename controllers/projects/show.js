@@ -28,7 +28,7 @@ function parseResponse(rxml) {
 	for (var i=0;i<rxml.getElementsByTagName("item").length;i++) {
 	
 		var img_item = rxml.getElementsByTagName("item").item(i);
-		Ti.API.info('IMG: ' + img_item.getElementsByTagName("src").item(0).text);
+		//Ti.API.info('IMG: ' + img_item.getElementsByTagName("src").item(0).text);
 		
 		composedViews.push(setComposeView(img_item.getElementsByTagName("src").item(0).text))
 	} 
@@ -49,12 +49,17 @@ function setComposeView(_image) {
 	});
 	
 	
-	
-	var imageView = Ti.UI.createImageView({
-		url:_image,
-		backgroundImage:'../../images/loading_image.png'	
+	var imageBg = Ti.UI.createImageView({
+		width:140,
+		height:140,
+		url:'../../images/loader_140x140_black.png'	
 	});
 	
+	var imageView = Ti.UI.createImageView({
+		url:_image
+	});
+	
+	newView.add(imageBg);
 	newView.add(imageView);
 	
 	
@@ -80,7 +85,7 @@ Titanium.include("../../shared/buttons_left_right.js");
 function addPanel() {
 	win.add(toolbar);
 	win.add(titleLine);
-	buttonsBar._init(titleLine, win, ["ButtonTopHand", "ButtonTopFvorite"]);
+	buttonsBar._init_mini_version(titleLine, win, ["ButtonTopHand", "ButtonTopFvorite"]);
 
 }
 

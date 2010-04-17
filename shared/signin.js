@@ -25,6 +25,7 @@ signIn = function() {
 		ButtonLogin = Titanium.UI.createButton({
 			top:120,
 			image:'../../images/button_pl_blue.png',
+			backgroundSelectedImage:'../../images/button_pl_blue_e.png',
 			width: 173,
 			height: 26,
 			title: "Log In",
@@ -35,6 +36,7 @@ signIn = function() {
 		ButtonCancel = Titanium.UI.createButton({
 			top:156,
 			image:'../../images/button_pl_gray.png',
+			backgroundSelectedImage:'../../images/button_pl_gray_e.png',
 			width: 173,
 			height: 26,
 			title: "Cancel",

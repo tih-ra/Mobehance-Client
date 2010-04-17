@@ -1,4 +1,5 @@
 var win = Titanium.UI.currentWindow;
+
 Titanium.include("../../shared/signin.js");
 Titanium.include("../../shared/api_client.js");
 Titanium.include("../../shared/button_panel.js");
@@ -65,7 +66,8 @@ function parseResponse(rxml) {
 
 function setComposeView(_image, _project_title, _url, _user_name, _user_url, categories, _date) {
 	var newView = Ti.UI.createView({
-		backgroundColor:'#fff'
+		backgroundColor:'#fff',
+		touchEnabled:true
 	});
 	
 	var project_titleLabel = Ti.UI.createLabel({
@@ -94,7 +96,7 @@ function setComposeView(_image, _project_title, _url, _user_name, _user_url, cat
 		top:90,
 		width:202,
 		height:158,
-		backgroundImage:'../../images/loading_image.png'
+		backgroundImage:'../../images/loader_202x158.png'
 				
 	});
 	imageView.url = _image;
@@ -107,6 +109,24 @@ function setComposeView(_image, _project_title, _url, _user_name, _user_url, cat
 			url: 'show.js'
 		});
 		project_show_window.open({modal:true});
+	});
+	
+	/********/
+	newView.addEventListener('touchmove', function(e) {
+		Ti.API.info("DIRECTION " + e.x);
+		/*switch(e.x)
+		{
+			case "left":
+		  		if (i == 0) return;
+				i--;
+				scrollView.scrollToView(i);
+			break;
+			case "right":
+				if (i == (scrollView.views.length-1)) return;
+				i++;
+				scrollView.scrollToView(scrollView.views[i]);
+			break;
+		}*/
 	});
 	
 	newView.add(imageView);
@@ -156,6 +176,7 @@ function createCategoryButton(category, parentTop) {
 	var ButtonCategory = Titanium.UI.createButton({
 		top: parentTop,
 		image:'../../images/button_pl_blue.png',
+		backgroundSelectedImage: '../../images/button_pl_blue_e.png',
 		width: 173,
 		height: 26,
 		title: category.getElementsByTagName("name").item(0).text,

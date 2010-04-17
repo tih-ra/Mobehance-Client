@@ -16,7 +16,8 @@ function favorite(top, left, favoriteXML){
 	var ImageCover = Ti.UI.createImageView({
 		width:140,
 		height:140,
-		url: favoriteXML.getElementsByTagName("cover_src").item(0).text
+		url: favoriteXML.getElementsByTagName("cover_src").item(0).text,
+		backgroundImage:'../../images/loader_140x140.png'
 	});
 	
 	var ViewLabelBG = Titanium.UI.createView({
@@ -41,6 +42,7 @@ function favorite(top, left, favoriteXML){
 		top:5,
 		right:5,
 		image:'../../images/button_pl_del.png',
+		backgroundSelectedImage: '../../images/button_pl_del_e.png',
 		width: 26,
 		height: 16
 	});

@@ -9,8 +9,10 @@ var left = Titanium.UI.createButton({
 });
 left.addEventListener('click', function(e)
 {
+	
 	if (i == 0) return;
 	i--;
+	(i==0) ? left.image = '../../images/left_d.png' : left.image = '../../images/left.png'
 	scrollView.scrollToView(i)
 });
 
@@ -26,8 +28,10 @@ right.addEventListener('click', function(e)
 {
 	if (i == (scrollView.views.length-1)) return;
 	i++;
+	(i == (scrollView.views.length-1)) ? right.image = '../../images/right_d.png' : right.image = '../../images/right.png'
 	scrollView.scrollToView(scrollView.views[i]);
 });
+
 
 
 var toolbar = Titanium.UI.createView({
