@@ -46,7 +46,7 @@ apiClient = function(){
 		
 		ac_xhr.onload = function()
 		{
-			if (this.status == 200) { _response_fnc(this.responseXML); showACLoader(false); }
+			if (this.status == 200 && this.readyState == 4) { _response_fnc(this.responseXML); showACLoader(false); }
 		};
 	}
 	

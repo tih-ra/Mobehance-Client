@@ -74,25 +74,38 @@ var ButtonFeatured = Titanium.UI.createButton({
 	}), 
 	
 	ButtonTopComment = Titanium.UI.createButton({
-		image:'../../images/add_comment.png',
-		width:20,
-		height:20,
-		right:5,
+		image:'../../images/new_comment.png',
+		width:36,
+		height:37,
+		right:25,
+		bottom:22
 	}),
 	
 	ButtonTopHand = Titanium.UI.createButton({
-		image:'../../images/hand.png',
-		width:20,
-		height:20,
-		right:5,
+		image:'../../images/new_menu.png',
+		width:30,
+		height:30,
+		right:8,
+		bottom:41
 	}),
 	
 	ButtonTopFvorite = Titanium.UI.createButton({
-		image:'../../images/favorites.png',
-		width:20,
-		height:20,
-		right:30,
+		image:'../../images/new_favorites.png',
+		width:33,
+		height:31,
+		right:39,
+		bottom:10
 	}),
+	/* NEW v 1.0.2 */
+	ViewPl = Ti.UI.createView({
+		width:82,
+		height:82,
+		bottom:0,
+		right:0,
+		backgroundImage:'../../images/new_pl.png',
+		zIndex:800	
+	});
+	/* END NEW v 1.0.2 */
 	buttonbar_visibility = false,
 	commentbar_visibility = false
 
@@ -238,18 +251,18 @@ var ButtonFeatured = Titanium.UI.createButton({
 			completeButtonsBar();
 			
 			for (var i=0;i<buttons.length;i++) {
-				titleLine.add(eval(buttons[i]));
+				ViewPl.add(eval(buttons[i]));
 			}
-			
+			win.add(ViewPl)
 			win.add(buttonsBar)
 		},
 		_init_mini_version: function(titleLine, win, buttons) {
 			completeMiniButtonsBar();
 			
 			for (var i=0;i<buttons.length;i++) {
-				titleLine.add(eval(buttons[i]));
+				ViewPl.add(eval(buttons[i]));
 			}
-			
+			win.add(ViewPl)
 			win.add(buttonsBar)
 		},
 		_show_hide: function() {

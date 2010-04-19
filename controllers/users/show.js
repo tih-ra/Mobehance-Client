@@ -39,7 +39,7 @@ function user(userXML) {
 	var ButtonPersonalUrl = Titanium.UI.createButton({
 		top:260,
 		image:'../../images/button_pl_blue.png',
-		backgroundSelectedImage: '../../images/button_pl_blue_e.png'
+		backgroundSelectedImage: '../../images/button_pl_blue_e.png',
 		width: 173,
 		height: 26,
 		title: "User Site",//userXML.getElementsByTagName("personal_url").item(0).text.str.substr(100),

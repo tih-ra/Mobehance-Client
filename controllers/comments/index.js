@@ -130,6 +130,7 @@ function parseResponse(rxml) {
 	titleLabel.text = rxml.getElementsByTagName("title").item(0).text+"\ncomments"
 	addPanel();
 	(commentXML.length > 0) ? win.add(ScrollViewCommentsContainer) : win.add(LabelNoComments);
+	
 }
 
 function addPanel() {

@@ -19,6 +19,8 @@ Ti.Gesture.addEventListener('orientationchange',function(e)
 
 var scrollView = null;
 var projectLinksCollection = []
+var projectUserLinksCollection = []
+
 /* TITLE */
 
 Titanium.include("../../shared/title_line.js");
@@ -63,11 +65,10 @@ function parseResponse(rxml) {
 	addPanels();
 }
 
-
 function setComposeView(_image, _project_title, _url, _user_name, _user_url, categories, _date) {
 	var newView = Ti.UI.createView({
 		backgroundColor:'#fff',
-		touchEnabled:true
+		zIndex:100
 	});
 	
 	var project_titleLabel = Ti.UI.createLabel({
@@ -96,7 +97,8 @@ function setComposeView(_image, _project_title, _url, _user_name, _user_url, cat
 		top:90,
 		width:202,
 		height:158,
-		backgroundImage:'../../images/loader_202x158.png'
+		backgroundImage:'../../images/loader_202x158.png',
+		zIndex:400
 				
 	});
 	imageView.url = _image;
@@ -111,23 +113,6 @@ function setComposeView(_image, _project_title, _url, _user_name, _user_url, cat
 		project_show_window.open({modal:true});
 	});
 	
-	/********/
-	newView.addEventListener('touchmove', function(e) {
-		Ti.API.info("DIRECTION " + e.x);
-		/*switch(e.x)
-		{
-			case "left":
-		  		if (i == 0) return;
-				i--;
-				scrollView.scrollToView(i);
-			break;
-			case "right":
-				if (i == (scrollView.views.length-1)) return;
-				i++;
-				scrollView.scrollToView(scrollView.views[i]);
-			break;
-		}*/
-	});
 	
 	newView.add(imageView);
 	
@@ -194,14 +179,12 @@ function createCategoryButton(category, parentTop) {
 function _createScrollableView(views) {
     scrollView = Titanium.UI.createScrollableView({
 	views:views,
-	showPagingControl:true,
+	showPagingControl:false,
 	pagingControlHeight:30,
 	maxZoomScale:2.0,
-	currentPage:0,
-	zIndex:-10});
-	scrollView.currentPage = 0;
+	currentPage:1});
+	scrollView.currentPage = 1;
 	scrollView.addEventListener('scroll', function(e){
-		//Ti.API.info("ERROR " + e.view.newView);
 		Titanium.App.Properties.setString("_FOCUSED_USER_URL", projectUserLinksCollection[e.currentPage]);
 		Titanium.App.Properties.setString("_FOCUSED_PROJECT_URL", projectLinksCollection[e.currentPage]);
 	});
@@ -212,7 +195,31 @@ Titanium.include("../../shared/buttons_left_right.js");
 
 /* ADD PANELS */
 function addPanels() {
+	/* TMP */
+		var tmp_imageView = Ti.UI.createImageView({
+			top:120,
+			width:202,
+			height:158,
+			url:'../../images/transparent.png',
+			zIndex:400
+
+		});
+		
+		tmp_imageView.addEventListener('click', function(e){
+			Titanium.App.Properties.setString("_LINK_SHOW_PROJECT",Titanium.App.Properties.getString("_LINK_GALLERY")+Titanium.App.Properties.getString("_FOCUSED_PROJECT_URL")+".xml");
+			var t_project_show_window = Titanium.UI.createWindow({  
+			    title:'Featured',
+			    backgroundColor:'#fff',
+				url: 'show.js'
+			});
+			t_project_show_window.open({modal:true});
+		});
+		win.add(tmp_imageView);
+	/* END TMP */
+	
 	setTitleLineStyle(titleLabel.text.length < 14 ? "default" : "mini");
+	
+	
 	win.add(titleLine);
 	win.add(toolbar);
 	buttonsBar._init(titleLine, win, ["ButtonTopHand", "ButtonTopFvorite"]);
