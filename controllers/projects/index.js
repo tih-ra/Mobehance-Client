@@ -75,13 +75,13 @@ function parseResponse(rxml) {
 function setComposeView(_image, _project_title, _url, _user_name, _user_url, categories, _date) {
 	var newView = Ti.UI.createView({
 		backgroundColor:'#fff',
-		top:25,
+		top:85,
 		zIndex:100
 	});
 	
 	var project_titleLabel = Ti.UI.createLabel({
 		color:'#009cec',
-		font:{fontSize:20,fontWeight:'bold',fontFamily:'Helvetica'},
+		font:{fontSize:20,fontWeight:'bold',fontFamily:'Helvetica Neue'},
 		textAlign: 'center',
 		width:300,
 		height:'auto',
@@ -255,9 +255,9 @@ function _createTmpCategoriesButtons(_current_category){
 function _createScrollableView(views) {
     scrollView = Titanium.UI.createScrollableView({
 	views:views,
+	top:10,
 	showPagingControl:false,
-	pagingControlHeight:'auto',
-	pagingControlWidth:'auto',
+	pagingControlHeight:30,
 	maxZoomScale:2.0,
 	zIndex:-10,
 	currentPage:1});

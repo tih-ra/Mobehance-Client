@@ -8,7 +8,7 @@ var titleLine = Titanium.UI.createView({
 var titleLabel = Ti.UI.createLabel({
 	color:'#fff',
 	//backgroundColor:'#2b2b2b',
-	font:{fontSize:18,fontWeight:'bold',fontFamily:'Helvetica Neue'},
+	font:{fontSize:18,fontWeight:'bold',fontFamily:'Helvetica'},
 	width:'auto',
 	top:0,
 	left:5,
