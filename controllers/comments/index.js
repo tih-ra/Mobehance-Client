@@ -135,7 +135,7 @@ function parseResponse(rxml) {
 
 function addPanel() {
 	win.add(titleLine);
-	buttonsBar._init(titleLine, win, ["ButtonTopComment"]);
+	//buttonsBar._init(titleLine, win, ["ButtonTopComment"]);
 }
 
 

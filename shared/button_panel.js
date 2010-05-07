@@ -157,16 +157,16 @@ var ButtonFeatured = Titanium.UI.createButton({
 		ButtonMiniFavorite.addEventListener('click', function(e){
 			var success_event_callback = 'add_to_favorite_after_login';
 			function _run_link(){
-				apiClient.saveFavorite(Titanium.App.Properties.getString("_LINK_REST_FAVORITES"), win, "favorites[proj_url]="+Titanium.App.Properties.getString("_FOCUSED_PROJECT_URL")+"&favorites[behance_user]="+Titanium.App.Properties.getString("_USER_ID")+"");
+				apiClient.saveFavorite(Titanium.App.Properties.getString("_LINK_REST_FAVORITES"), win, "favorites[proj_url]="+Titanium.App.Properties.getString("_FOCUSED_PROJECT_URL")+"&favorites[behance_user]="+Titanium.Platform.macaddress+"");
 			};
 			buttonBarShowHide();
-			if (Titanium.App.Properties.getString("_BEHANCE_SESSIONS")==null) {
+			/*if (Titanium.App.Properties.getString("_BEHANCE_SESSIONS")==null) {
 				signIn._callbacks(success_event_callback, null);
 				signIn._init(win);
 				 win.addEventListener(success_event_callback, _run_link);
-			} else { 
+			} else { */
 				_run_link()
-			}
+			//}
 			
 		});
 		
@@ -196,13 +196,13 @@ var ButtonFeatured = Titanium.UI.createButton({
 				favoritesWindow.open({modal:true});
 				
 			}
-			if (Titanium.App.Properties.getString("_BEHANCE_SESSIONS")==null) {
+			/*if (Titanium.App.Properties.getString("_BEHANCE_SESSIONS")==null) {
 				signIn._callbacks(success_event_callback, null);
 				signIn._init(win);
 				win.addEventListener(success_event_callback, _run_link);
-			} else {
+			} else {*/
 				_run_link();
-			}
+			//}
 		});
 		
 		

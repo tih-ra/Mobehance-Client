@@ -55,7 +55,7 @@ function favorite(top, left, favoriteXML){
 	
 	ButtonDeleteFav.addEventListener('click', function(e){
 		apiClient.localizeEvents('favorite_destroyed', null);
-		apiClient.destroyFavorite(Titanium.App.Properties.getString("_LINK_REST_FAVORITES")+"/"+favoriteXML.getElementsByTagName("id").item(0).text+"?behance_user="+Titanium.App.Properties.getString("_USER_ID")+"", win);
+		apiClient.destroyFavorite(Titanium.App.Properties.getString("_LINK_REST_FAVORITES")+"/"+favoriteXML.getElementsByTagName("id").item(0).text+"?behance_user="+Titanium.Platform.macaddress+"", win);
 	});
 	
 	ImageCover.addEventListener('click', function(e){
@@ -93,7 +93,7 @@ if (ScrollViewFavoritesContainer!=null) {win.remove(ScrollViewFavoritesContainer
 }
 
 function favorites_init() {
-	apiClient.getCollection(Titanium.App.Properties.getString("_LINK_REST_FAVORITES")+".xml"+"?behance_user="+Titanium.App.Properties.getString("_USER_ID")+"", 'GET', win, parseResponse);
+	apiClient.getCollection(Titanium.App.Properties.getString("_LINK_REST_FAVORITES")+".xml"+"?behance_user="+Titanium.Platform.macaddress+"", 'GET', win, parseResponse);
 }
 favorites_init();
 win.addEventListener('favorite_destroyed', function(e){

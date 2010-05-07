@@ -191,7 +191,6 @@ function createCategoryButton(category, parentTop) {
 function _createTmpCategoriesButtons(_current_category){
 	var tmp_category = _current_category.getElementsByTagName("category")
 	if (tmp_categoriesView!=null) {
-		Ti.API.info("NOT NULL ");
 		win.remove(tmp_categoriesView);
 		//tmp_categoriesView.remove();
 	}
