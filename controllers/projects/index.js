@@ -36,7 +36,6 @@ function parseResponse(rxml) {
 	projectLinksCollection = [];
 	projectUserLinksCollection = [];
 	categoryCollection = [];
-	_current_category = null;
 	
 	var composedViews = [];
 	//var xml = Ti.XML.parseString(rxml);
@@ -64,9 +63,9 @@ function parseResponse(rxml) {
 		_createScrollableView(composedViews);
 		win.add(scrollView);
 	
-	Titanium.App.Properties.setString("_FOCUSED_USER_URL", projectUserLinksCollection[0]);	
-	Titanium.App.Properties.setString("_FOCUSED_PROJECT_URL", projectLinksCollection[0]);
-	_current_category = categoryLinkCollection[0];
+	Titanium.App.Properties.setString("_FOCUSED_USER_URL", projectUserLinksCollection[1]);	
+	Titanium.App.Properties.setString("_FOCUSED_PROJECT_URL", projectLinksCollection[1]);
+	_current_category = categoryLinkCollection[1];
 	
 	addPanels();
 }
@@ -199,9 +198,9 @@ function _createTmpCategoriesButtons(){
 		backgroundSelectedImage: '../../images/transparent.png',
 		width: 173,
 		height: 26,
-		//title: category.getElementsByTagName("name").item(0).text,
-		//color:'#fff',
-		//font:{fontSize:18,fontWeight:'normal',fontFamily:'Helvetica Neue'},
+		title: _current_category.getElementsByTagName("category").item(0).getElementsByTagName("name").item(0).text,
+		color:'#ff0000',
+		font:{fontSize:12,fontWeight:'normal',fontFamily:'Helvetica Neue'},
 		zIndex:800
 	});
 	
@@ -217,18 +216,16 @@ function _createTmpCategoriesButtons(){
 		zIndex:800
 	});
 	
-	if (_current_category.length>0) {
+	
 	tmp_ButtonCategory_A.addEventListener('touchstart', function(e){
 		titleLabel.text = _current_category.getElementsByTagName("category").item(0).getElementsByTagName("name").item(0).text;
 	    apiClient.getCollection(Titanium.App.Properties.getString("_LINK_CATEGORIES")+"/"+_current_category.getElementsByTagName("category").item(0).getElementsByTagName("url").item(0).text+".xml", 'GET', win, parseResponse);
 	}); 
-	} 
-	if (_current_category.length>1) {
-		tmp_ButtonCategory_B.addEventListener('touchstart', function(e){
-			titleLabel.text = _current_category.getElementsByTagName("category").item(1).getElementsByTagName("name").item(0).text;
-		    apiClient.getCollection(Titanium.App.Properties.getString("_LINK_CATEGORIES")+"/"+_current_category.getElementsByTagName("category").item(1).getElementsByTagName("url").item(0).text+".xml", 'GET', win, parseResponse);
+	
+	tmp_ButtonCategory_B.addEventListener('touchstart', function(e){
+		titleLabel.text = _current_category.getElementsByTagName("category").item(1).getElementsByTagName("name").item(0).text;
+		apiClient.getCollection(Titanium.App.Properties.getString("_LINK_CATEGORIES")+"/"+_current_category.getElementsByTagName("category").item(1).getElementsByTagName("url").item(0).text+".xml", 'GET', win, parseResponse);
 	});	
-	}
 	
 	tmp_categoriesView.add(tmp_ButtonCategory_B);
 	tmp_categoriesView.add(tmp_ButtonCategory_A);
