@@ -20,7 +20,8 @@ Ti.Gesture.addEventListener('orientationchange',function(e)
 var scrollView = null;
 var projectLinksCollection = []
 var projectUserLinksCollection = []
-
+var categoryLinkCollection = []
+var _current_category;
 /* TITLE */
 
 Titanium.include("../../shared/title_line.js");
@@ -34,6 +35,8 @@ apiClient.getCollection(Titanium.App.Properties.getString("_LINK_DEFAULT"), 'GET
 function parseResponse(rxml) {
 	projectLinksCollection = [];
 	projectUserLinksCollection = [];
+	categoryCollection = [];
+	_current_category = null;
 	
 	var composedViews = [];
 	//var xml = Ti.XML.parseString(rxml);
@@ -45,6 +48,7 @@ function parseResponse(rxml) {
 		
 		projectLinksCollection.push(project.getElementsByTagName("url").item(0).text);
 		projectUserLinksCollection.push(project.getElementsByTagName("user").item(0).getElementsByTagName("url").item(0).text);
+		categoryLinkCollection.push(project.getElementsByTagName("categories").item(0));
 		
 		composedViews.push(setComposeView(project.getElementsByTagName("cover").item(0).text, 
 										  project.getElementsByTagName("title").item(0).text,
@@ -62,13 +66,15 @@ function parseResponse(rxml) {
 	
 	Titanium.App.Properties.setString("_FOCUSED_USER_URL", projectUserLinksCollection[0]);	
 	Titanium.App.Properties.setString("_FOCUSED_PROJECT_URL", projectLinksCollection[0]);
+	_current_category = categoryLinkCollection[0];
+	
 	addPanels();
 }
 
 function setComposeView(_image, _project_title, _url, _user_name, _user_url, categories, _date) {
 	var newView = Ti.UI.createView({
 		backgroundColor:'#fff',
-		zIndex:1000
+		zIndex:100
 	});
 	
 	var project_titleLabel = Ti.UI.createLabel({
@@ -178,6 +184,59 @@ function createCategoryButton(category, parentTop) {
 	
 	return ButtonCategory;
 }
+
+/* TMP CATEGORIES OVER */
+function _createTmpCategoriesButtons(){
+	var tmp_categoriesView = Ti.UI.createView({
+		top: 305,
+		width: 'auto',
+		height: 120
+	});
+	
+	var tmp_ButtonCategory_A = Titanium.UI.createButton({
+		top: 0,
+		image:'../../images/transparent.png',
+		backgroundSelectedImage: '../../images/transparent.png',
+		width: 173,
+		height: 26,
+		//title: category.getElementsByTagName("name").item(0).text,
+		//color:'#fff',
+		//font:{fontSize:18,fontWeight:'normal',fontFamily:'Helvetica Neue'},
+		zIndex:800
+	});
+	
+	var tmp_ButtonCategory_B = Titanium.UI.createButton({
+		top: 36,
+		image:'../../images/transparent.png',
+		backgroundSelectedImage: '../../images/transparent.png',
+		width: 173,
+		height: 26,
+		//title: category.getElementsByTagName("name").item(0).text,
+		//color:'#fff',
+		//font:{fontSize:18,fontWeight:'normal',fontFamily:'Helvetica Neue'},
+		zIndex:800
+	});
+	
+	if (_current_category.length>0) {
+	tmp_ButtonCategory_A.addEventListener('touchstart', function(e){
+		titleLabel.text = _current_category.getElementsByTagName("category").item(0).getElementsByTagName("name").item(0).text;
+	    apiClient.getCollection(Titanium.App.Properties.getString("_LINK_CATEGORIES")+"/"+_current_category.getElementsByTagName("category").item(0).getElementsByTagName("url").item(0).text+".xml", 'GET', win, parseResponse);
+	}); 
+	} 
+	if (_current_category.length>1) {
+		tmp_ButtonCategory_B.addEventListener('touchstart', function(e){
+			titleLabel.text = _current_category.getElementsByTagName("category").item(1).getElementsByTagName("name").item(0).text;
+		    apiClient.getCollection(Titanium.App.Properties.getString("_LINK_CATEGORIES")+"/"+_current_category.getElementsByTagName("category").item(1).getElementsByTagName("url").item(0).text+".xml", 'GET', win, parseResponse);
+	});	
+	}
+	
+	tmp_categoriesView.add(tmp_ButtonCategory_B);
+	tmp_categoriesView.add(tmp_ButtonCategory_A);
+	win.add(tmp_categoriesView);
+}
+/* END TMP CATEGORIES OVER */
+
+
 function _createScrollableView(views) {
     scrollView = Titanium.UI.createScrollableView({
 	views:views,
@@ -191,6 +250,7 @@ function _createScrollableView(views) {
 	scrollView.addEventListener('scroll', function(e){
 		Titanium.App.Properties.setString("_FOCUSED_USER_URL", projectUserLinksCollection[e.currentPage]);
 		Titanium.App.Properties.setString("_FOCUSED_PROJECT_URL", projectLinksCollection[e.currentPage]);
+		_current_category = categoryLinkCollection[e.currentPage];
 	});
 	
 }
@@ -222,7 +282,7 @@ function addPanels() {
 	/* END TMP */
 	
 	setTitleLineStyle(titleLabel.text.length < 14 ? "default" : "mini");
-	
+	_createTmpCategoriesButtons();
 	
 	win.add(titleLine);
 	win.add(toolbar);
