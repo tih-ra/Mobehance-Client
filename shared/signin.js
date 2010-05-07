@@ -52,7 +52,7 @@ signIn = function() {
 			height: 192,
 			width: 300,
 			visible: false,
-			zIndex:200
+			zIndex:600
 		})
 		
 		/* EVENT LISTENERS */

@@ -68,7 +68,7 @@ function parseResponse(rxml) {
 function setComposeView(_image, _project_title, _url, _user_name, _user_url, categories, _date) {
 	var newView = Ti.UI.createView({
 		backgroundColor:'#fff',
-		zIndex:100
+		zIndex:1000
 	});
 	
 	var project_titleLabel = Ti.UI.createLabel({
@@ -103,7 +103,7 @@ function setComposeView(_image, _project_title, _url, _user_name, _user_url, cat
 	});
 	imageView.url = _image;
 	
-	imageView.addEventListener('click', function(e){
+	imageView.addEventListener('touchstart', function(e){
 		Titanium.App.Properties.setString("_LINK_SHOW_PROJECT",Titanium.App.Properties.getString("_LINK_GALLERY")+_url);
 		var project_show_window = Titanium.UI.createWindow({  
 		    title:'Featured',
@@ -126,6 +126,7 @@ function setComposeView(_image, _project_title, _url, _user_name, _user_url, cat
 	});
 	user_nameView.text = "by "+_user_name;
 	newView.add(user_nameView);
+	
 	newView.add(_collectCategories(categories));
 	
 	return newView;
@@ -166,10 +167,11 @@ function createCategoryButton(category, parentTop) {
 		height: 26,
 		title: category.getElementsByTagName("name").item(0).text,
 		color:'#fff',
-		font:{fontSize:18,fontWeight:'normal',fontFamily:'Helvetica Neue'}
+		font:{fontSize:18,fontWeight:'normal',fontFamily:'Helvetica Neue'},
+		zIndex:800
 	});
 	
-	ButtonCategory.addEventListener('click', function(e){
+	ButtonCategory.addEventListener('touchstart', function(e){
 		titleLabel.text = category.getElementsByTagName("name").item(0).text;
 	    apiClient.getCollection(Titanium.App.Properties.getString("_LINK_CATEGORIES")+"/"+category.getElementsByTagName("url").item(0).text+".xml", 'GET', win, parseResponse);
 	});
@@ -180,8 +182,10 @@ function _createScrollableView(views) {
     scrollView = Titanium.UI.createScrollableView({
 	views:views,
 	showPagingControl:false,
-	pagingControlHeight:30,
+	pagingControlHeight:'auto',
+	pagingControlWidth:'auto',
 	maxZoomScale:2.0,
+	zIndex:-10,
 	currentPage:1});
 	scrollView.currentPage = 1;
 	scrollView.addEventListener('scroll', function(e){
@@ -205,7 +209,7 @@ function addPanels() {
 
 		});
 		
-		tmp_imageView.addEventListener('click', function(e){
+		tmp_imageView.addEventListener('touchstart', function(e){
 			Titanium.App.Properties.setString("_LINK_SHOW_PROJECT",Titanium.App.Properties.getString("_LINK_GALLERY")+Titanium.App.Properties.getString("_FOCUSED_PROJECT_URL")+".xml");
 			var t_project_show_window = Titanium.UI.createWindow({  
 			    title:'Featured',
@@ -214,7 +218,7 @@ function addPanels() {
 			});
 			t_project_show_window.open({modal:true});
 		});
-		win.add(tmp_imageView);
+		
 	/* END TMP */
 	
 	setTitleLineStyle(titleLabel.text.length < 14 ? "default" : "mini");
@@ -223,4 +227,5 @@ function addPanels() {
 	win.add(titleLine);
 	win.add(toolbar);
 	buttonsBar._init(titleLine, win, ["ButtonTopHand", "ButtonTopFvorite"]);
+	//win.add(tmp_imageView);
 }
