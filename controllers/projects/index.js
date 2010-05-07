@@ -227,5 +227,5 @@ function addPanels() {
 	win.add(titleLine);
 	win.add(toolbar);
 	buttonsBar._init(titleLine, win, ["ButtonTopHand", "ButtonTopFvorite"]);
-	//win.add(tmp_imageView);
+	win.add(tmp_imageView);
 }
