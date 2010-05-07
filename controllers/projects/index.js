@@ -75,6 +75,7 @@ function parseResponse(rxml) {
 function setComposeView(_image, _project_title, _url, _user_name, _user_url, categories, _date) {
 	var newView = Ti.UI.createView({
 		backgroundColor:'#fff',
+		top:25,
 		zIndex:100
 	});
 	
